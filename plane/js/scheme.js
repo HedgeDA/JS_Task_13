@@ -230,16 +230,20 @@ function onChangeAC(event) {
 }
 
 function init() {
+  formData.buttons.setFull.disabled = true;
+  formData.buttons.setEmpty.disabled = true;
+
   formData.select.addEventListener('change', onChangeAC);
 
   formData.buttons.seatMap.addEventListener('click', onSeatMap);
   formData.buttons.setFull.addEventListener('click', onSetFull);
   formData.buttons.setEmpty.addEventListener('click', onSetEmpty);
 
-  getPlaneData(acSelect.value);
 
   document.addEventListener('keydown', onKeyDown);
   document.addEventListener('keyup', onKeyUp);
+
+  getPlaneData(acSelect.value);
 }
 
 document.addEventListener('DOMContentLoaded', init);
