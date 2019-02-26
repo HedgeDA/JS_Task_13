@@ -190,10 +190,50 @@ function onSeatMap(event) {
 
 function onSetFull(event) {
   event.preventDefault();
+
+  formData.planeData.scheme.forEach((row) => {
+    row.seats.forEach((seat) => {
+      if (seat.state === 'null') return;
+
+      seat.state = 'adult';
+    })
+  });
+
+  for (let element of document.querySelectorAll('.seat')) {
+    element.classList.remove('empty');
+    element.classList.remove('half');
+    element.classList.add('adult');
+  }
+
+  formData.planeData.totals.empty = 0;
+  formData.planeData.totals.half = 0;
+  formData.planeData.totals.adult = formData.planeData.passengers;
+
+  updateTotals();
 }
 
 function onSetEmpty(event) {
   event.preventDefault();
+
+  formData.planeData.scheme.forEach((row) => {
+    row.seats.forEach((seat) => {
+      if (seat.state === 'null') return;
+
+      seat.state = 'empty';
+    })
+  });
+
+  for (let element of document.querySelectorAll('.seat')) {
+    element.classList.remove('adult');
+    element.classList.remove('half');
+    element.classList.add('empty');
+  }
+
+  formData.planeData.totals.empty = formData.planeData.passengers;
+  formData.planeData.totals.half = 0;
+  formData.planeData.totals.adult = 0;
+
+  updateTotals();
 }
 
 function onKeyDown(event) {
